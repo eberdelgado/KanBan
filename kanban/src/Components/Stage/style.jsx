@@ -18,3 +18,11 @@ export const Title = styled.div`
     height: 10%;
     border-bottom: solid 2px;
 `
+
+export const TaskList = styled.div`
+    height: 90%;
+    width:100%;
+    display:grid;
+    justify-items:center;
+    overflow: auto;
+`

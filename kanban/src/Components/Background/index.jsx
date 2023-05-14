@@ -4,12 +4,11 @@ import Stage from "../Stage"
 
 const Background = () => {
   const {stage}= useStageContext()
-  console.log(stage)
   return (
     <Blackboard>
       {stage && stage.map((s)=>{
         return(
-          <Stage is={s.id}/>
+          <Stage key={s.id} id={s.id}/>
         )
       })}
     </Blackboard>
