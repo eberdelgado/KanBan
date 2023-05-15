@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.span`
     background-color: #d4f70f;
     width:70%;
     height:20vh;
