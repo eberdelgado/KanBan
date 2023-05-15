@@ -1,6 +1,6 @@
 import { useStageContext } from "../../Hook/useStageContext"
 import Task from "../Task";
-import {Container, Title, TaskList} from "./style"
+import {Container, Title, TaskList, DivTask} from "./style"
 import {useState,useRef} from "react"
 
 
@@ -25,28 +25,27 @@ const Stage = (props) => {
   const drop = (e) =>{
     e.preventDefault();
     const Ids = e.dataTransfer.getData("text/plain").split(",");
-  
     const newStageList=[...stageList];
     const prevStage=newStageList.filter((s)=>s.id===parseInt(Ids[1]))[0]
     const newStage=newStageList.filter((s)=>s.id===props.id)[0] ;
     prevStage.tasks=prevStage.tasks.filter((t)=>t.id!==parseInt(Ids[0]))
     newStage.tasks=[...newStage.tasks,{id:parseInt(Ids[0])}]
-    /*setStageList({...stage,
-      tasks:[...stage.tasks]})
-    */
+    console.log(e)
+    setIsDragging(false)
    setStageList(newStageList)
-   console.log(prevStage)
-   // console.log(" task ID:", taskId);
   }
 
   const handleDragStart = (event) => {
-    setIsDragging(true);
-    // Configura o estilo de arraste (opcional)
-   // event.dataTransfer.effectAllowed = 'move';
-    // Define os dados a serem transferidos durante o arraste
+    setIsDragging(event.target.id);
     event.dataTransfer.setData('text/plain', [event.target.id,props.id]);
     //console.log(event.target.id)
   };
+
+  const handleDragOver=(e)=>{
+    e.preventDefault()
+    //console.log(e)
+  }
+  console.log(isDragging)
 
   const handleDragEnd = () => {
     setIsDragging(false);
@@ -57,24 +56,24 @@ const Stage = (props) => {
         <Title> {stage.title}</Title>
         <TaskList 
             onDragEnter={onDragEnter} 
-            onDragOver={(e)=> e.preventDefault()} 
+            onDragOver={handleDragOver} 
             onDrop={drop}>
                 {stage.tasks && (
-                    stage.tasks.map((t)=>(
-                  
-                    (
-                    <Task 
-                      key={t.id}
-                      draggable 
-                      onDragStart={handleDragStart}
-                      onDragEnd={handleDragEnd}
-                      style={{
-                        cursor: 'move',
-                      }}  id={t.id}>
-                     id: {t.id}
-                    </Task>
-                    )
-                    ))
+                    stage.tasks.map((t,index)=>(
+                      <DivTask key={index}>
+                        { isDragging!==t.id &&
+                        <Task 
+                          key={t.id}
+                          draggable 
+                          //onDragEnter={onDragEnter} 
+                          onDragStart={handleDragStart}
+                          onDragEnd={handleDragEnd}
+                          //onDragOver={handleDragOver} 
+                          style={{
+                            cursor: 'move',
+                          }}  id={t.id}/>
+                          }
+                      </DivTask>))
                 )}
         </TaskList>
 

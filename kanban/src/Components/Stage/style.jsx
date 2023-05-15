@@ -26,3 +26,12 @@ export const TaskList = styled.div`
     justify-items:center;
     overflow: auto;
 `
+
+export const DivTask = styled.div`
+    background-color: #f1f1f097;
+    width:70%;
+    height:20vh;
+    margin-top:2.5%;
+    border-radius:15px;
+    cursor: move;
+`

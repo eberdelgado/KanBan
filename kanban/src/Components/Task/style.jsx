@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-export const Container = styled.span`
+export const Container = styled.div`
     background-color: #d4f70f;
-    width:70%;
-    height:20vh;
-    margin-top:2.5%;
+    height:100%;
     border-radius:15px;
     cursor: move;
 `
